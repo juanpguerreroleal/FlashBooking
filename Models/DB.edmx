@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DBStoreContainer">
+    <EntitySet Name="Rooms" EntityType="DB.Store.Rooms" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Guests" EntityType="DB.Store.Guests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bookings" EntityType="DB.Store.Bookings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoomTypes" EntityType="DB.Store.RoomTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DB.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="GuestBooking" Association="DB.Store.GuestBooking">
+      <End Role="Guest" EntitySet="Guests" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="BookingRoom" Association="DB.Store.BookingRoom">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="RoomTypeRoom" Association="DB.Store.RoomTypeRoom">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="RoomType" EntitySet="RoomTypes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoomTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Guests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Booking_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CheckInDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CheckOutDateTime" Type="datetime" Nullable="false" />
+    <Property Name="IsConfirmed" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Room_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AdultsCapacity" Type="int" Nullable="false" DefaultValue="2" />
+    <Property Name="ChildrenCapacity" Type="real" Nullable="false" />
+    <Property Name="TotalCapacity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="GuestBooking">
+    <End Role="Guest" Type="DB.Store.Guests" Multiplicity="*" />
+    <End Role="Booking" Type="DB.Store.Bookings" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="Booking_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingRoom">
+    <End Role="Booking" Type="DB.Store.Bookings" Multiplicity="*" />
+    <End Role="Room" Type="DB.Store.Rooms" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="Room_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoomTypeRoom">
+    <End Role="Room" Type="DB.Store.Rooms" Multiplicity="*" />
+    <End Role="RoomType" Type="DB.Store.RoomTypes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="RoomType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="RoomTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rooms" EntityType="DB.Room" />
+          <EntitySet Name="Guests" EntityType="DB.Guest" />
+          <EntitySet Name="Bookings" EntityType="DB.Booking" />
+          <AssociationSet Name="GuestBooking" Association="DB.GuestBooking">
+            <End Role="Guest" EntitySet="Guests" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="BookingRoom" Association="DB.BookingRoom">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <EntitySet Name="RoomTypes" EntityType="DB.RoomType" />
+          <AssociationSet Name="RoomTypeRoom" Association="DB.RoomTypeRoom">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="RoomType" EntitySet="RoomTypes" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="DB.User" />
+        </EntityContainer>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Booking" Relationship="DB.BookingRoom" FromRole="Room" ToRole="Booking" />
+          <NavigationProperty Name="RoomType" Relationship="DB.RoomTypeRoom" FromRole="Room" ToRole="RoomType" />
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Guest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Booking" Relationship="DB.GuestBooking" FromRole="Guest" ToRole="Booking" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Guest" Relationship="DB.GuestBooking" FromRole="Booking" ToRole="Guest" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CheckInDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="CheckOutDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Room" Relationship="DB.BookingRoom" FromRole="Booking" ToRole="Room" />
+          <Property Name="IsConfirmed" Type="Boolean" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <Association Name="GuestBooking">
+          <End Type="DB.Guest" Role="Guest" Multiplicity="1" />
+          <End Type="DB.Booking" Role="Booking" Multiplicity="1" />
+        </Association>
+        <Association Name="BookingRoom">
+          <End Type="DB.Booking" Role="Booking" Multiplicity="*" />
+          <End Type="DB.Room" Role="Room" Multiplicity="1" />
+        </Association>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="AdultsCapacity" Type="Int32" Nullable="false" DefaultValue="2" />
+          <Property Name="ChildrenCapacity" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Rooms" Relationship="DB.RoomTypeRoom" FromRole="RoomType" ToRole="Room" />
+          <Property Name="TotalCapacity" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="RoomTypeRoom">
+          <End Type="DB.Room" Role="Room" Multiplicity="*" />
+          <End Type="DB.RoomType" Role="RoomType" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBStoreContainer" CdmEntityContainer="DBContainer">
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Room)">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Guests">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Guest)">
+        <MappingFragment StoreEntitySet="Guests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Booking)">
+        <MappingFragment StoreEntitySet="Bookings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CheckInDateTime" ColumnName="CheckInDateTime" />
+          <ScalarProperty Name="CheckOutDateTime" ColumnName="CheckOutDateTime" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoomTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.RoomType)">
+        <MappingFragment StoreEntitySet="RoomTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AdultsCapacity" ColumnName="AdultsCapacity" />
+          <ScalarProperty Name="ChildrenCapacity" ColumnName="ChildrenCapacity" />
+          <ScalarProperty Name="TotalCapacity" ColumnName="TotalCapacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GuestBooking" TypeName="DB.GuestBooking" StoreEntitySet="Guests">
+      <EndProperty Name="Booking">
+        <ScalarProperty Name="Id" ColumnName="Booking_Id" />
+      </EndProperty>
+      <EndProperty Name="Guest">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BookingRoom" TypeName="DB.BookingRoom" StoreEntitySet="Bookings">
+      <EndProperty Name="Room">
+        <ScalarProperty Name="Id" ColumnName="Room_Id" />
+      </EndProperty>
+      <EndProperty Name="Booking">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
