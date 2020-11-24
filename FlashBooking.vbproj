@@ -113,14 +113,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAvailableRoomListResponse.vb" />
     <Compile Include="Models\GetBookingListResponse.vb" />
+    <Compile Include="Models\GetCreateBookingResponse.vb" />
     <Compile Include="Models\GetGuestListResponse.vb" />
+    <Compile Include="Models\GetGuestTypeListResponse.vb" />
     <Compile Include="Models\GetRoomsListResponse.vb" />
     <Compile Include="Models\GetRoomTypeListResponse.vb" />
     <Compile Include="Models\Guest.vb">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GuestModel.vb" />
+    <Compile Include="Models\GuestType.vb">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GuestTypeModel.vb" />
     <Compile Include="Models\LoginResponse.vb" />
     <Compile Include="Models\RegisterResponse.vb" />
     <Compile Include="Models\Room.vb">

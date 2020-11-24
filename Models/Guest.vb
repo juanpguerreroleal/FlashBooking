@@ -19,9 +19,11 @@ Namespace FlashBooking
         Public Property PhoneNumber As String
         Public Property City As String
         Public Property Country As String
-        Public Property Age As Integer
+        Public Property GuestTypeId As Integer
+        Public Property BirthDate As Nullable(Of Date)
     
         Public Overridable Property Booking As Booking
+        Public Overridable Property GuestType As GuestType
     
     End Class
 

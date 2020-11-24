@@ -30,34 +30,24 @@
             OnPropertyChanged(NameOf(Description))
         End Set
     End Property
-    Private _adultsCapacity As String
-    Public Property AdultsCapacity() As String
+    Private _number As Integer
+    Public Property Number() As Integer
         Get
-            Return _adultsCapacity
+            Return _number
         End Get
-        Set(ByVal value As String)
-            _adultsCapacity = value
-            OnPropertyChanged(NameOf(AdultsCapacity))
+        Set(ByVal value As Integer)
+            _number = value
+            OnPropertyChanged(NameOf(Number))
         End Set
     End Property
-    Private _childrensCapacity As String
-    Public Property ChildrensCapacity() As String
+    Private _cost As Decimal
+    Public Property Cost() As Decimal
         Get
-            Return _childrensCapacity
+            Return _cost
         End Get
-        Set(ByVal value As String)
-            _childrensCapacity = value
-            OnPropertyChanged(NameOf(ChildrensCapacity))
-        End Set
-    End Property
-    Private _totalCapacity As String
-    Public Property TotalCapacity() As String
-        Get
-            Return _totalCapacity
-        End Get
-        Set(ByVal value As String)
-            _totalCapacity = value
-            OnPropertyChanged(NameOf(TotalCapacity))
+        Set(ByVal value As Decimal)
+            _cost = value
+            OnPropertyChanged(NameOf(Cost))
         End Set
     End Property
 End Class

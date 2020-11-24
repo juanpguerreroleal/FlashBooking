@@ -11,6 +11,7 @@
     <EntitySet Name="Bookings" EntityType="DB.Store.Bookings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RoomTypes" EntityType="DB.Store.RoomTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="DB.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GuestTypes" EntityType="DB.Store.GuestTypes" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="GuestBooking" Association="DB.Store.GuestBooking">
       <End Role="Guest" EntitySet="Guests" />
       <End Role="Booking" EntitySet="Bookings" />
@@ -23,6 +24,10 @@
       <End Role="Room" EntitySet="Rooms" />
       <End Role="RoomType" EntitySet="RoomTypes" />
     </AssociationSet>
+    <AssociationSet Name="GuestTypeGuest" Association="DB.Store.GuestTypeGuest">
+      <End Role="GuestType" EntitySet="GuestTypes" />
+      <End Role="Guest" EntitySet="Guests" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Rooms">
     <Key>
@@ -31,6 +36,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RoomTypeId" Type="int" Nullable="false" />
+    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Nullable="false" />
   </EntityType>
   <EntityType Name="Guests">
     <Key>
@@ -42,7 +49,8 @@
     <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="City" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="GuestTypeId" Type="int" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="true" />
     <Property Name="Booking_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Bookings">
@@ -77,6 +85,15 @@
     <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GuestTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Nullable="false" />
   </EntityType>
   <Association Name="GuestBooking">
     <End Role="Guest" Type="DB.Store.Guests" Multiplicity="*" />
@@ -114,6 +131,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="GuestTypeGuest">
+    <End Role="GuestType" Type="DB.Store.GuestTypes" Multiplicity="1" />
+    <End Role="Guest" Type="DB.Store.Guests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GuestType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="GuestTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -136,6 +165,11 @@
             <End Role="RoomType" EntitySet="RoomTypes" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="DB.User" />
+          <EntitySet Name="GuestTypes" EntityType="DB.GuestType" />
+          <AssociationSet Name="GuestTypeGuest" Association="DB.GuestTypeGuest">
+            <End Role="GuestType" EntitySet="GuestTypes" />
+            <End Role="Guest" EntitySet="Guests" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Room">
           <Key>
@@ -146,6 +180,8 @@
           <NavigationProperty Name="Booking" Relationship="DB.BookingRoom" FromRole="Room" ToRole="Booking" />
           <NavigationProperty Name="RoomType" Relationship="DB.RoomTypeRoom" FromRole="Room" ToRole="RoomType" />
           <Property Name="RoomTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -158,7 +194,9 @@
           <Property Name="PhoneNumber" Type="String" Nullable="false" />
           <Property Name="City" Type="String" Nullable="false" />
           <Property Name="Country" Type="String" Nullable="false" />
-          <Property Name="Age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GuestType" Relationship="DB.GuestTypeGuest" FromRole="Guest" ToRole="GuestType" />
+          <Property Name="GuestTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -173,7 +211,7 @@
           <Property Name="IsConfirmed" Type="Boolean" Nullable="false" DefaultValue="False" />
         </EntityType>
         <Association Name="GuestBooking">
-          <End Type="DB.Guest" Role="Guest" Multiplicity="1" />
+          <End Type="DB.Guest" Role="Guest" Multiplicity="*" />
           <End Type="DB.Booking" Role="Booking" Multiplicity="1" />
         </Association>
         <Association Name="BookingRoom">
@@ -215,6 +253,28 @@
           <Property Name="PasswordHash" Type="String" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" />
         </EntityType>
+        <EntityType Name="GuestType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Guests" Relationship="DB.GuestTypeGuest" FromRole="GuestType" ToRole="Guest" />
+        </EntityType>
+        <Association Name="GuestTypeGuest">
+          <End Type="DB.GuestType" Role="GuestType" Multiplicity="1" />
+          <End Type="DB.Guest" Role="Guest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GuestType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Guest">
+              <PropertyRef Name="GuestTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -227,6 +287,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -239,7 +301,8 @@
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="Country" ColumnName="Country" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="GuestTypeId" ColumnName="GuestTypeId" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -275,6 +338,16 @@
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GuestTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.GuestType)">
+        <MappingFragment StoreEntitySet="GuestTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

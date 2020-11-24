@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/23/2020 00:17:09
+-- Date Created: 11/23/2020 18:59:19
 -- Generated from EDMX file: C:\Users\juan_\source\repos\FlashBooking\Models\DB.edmx
 -- --------------------------------------------------
 
@@ -26,6 +26,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_RoomTypeRoom]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Rooms] DROP CONSTRAINT [FK_RoomTypeRoom];
 GO
+IF OBJECT_ID(N'[dbo].[FK_GuestTypeGuest]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Guests] DROP CONSTRAINT [FK_GuestTypeGuest];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -46,6 +49,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users];
 GO
+IF OBJECT_ID(N'[dbo].[GuestTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GuestTypes];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -55,7 +61,9 @@ GO
 CREATE TABLE [dbo].[Rooms] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
-    [RoomTypeId] int  NOT NULL
+    [RoomTypeId] int  NOT NULL,
+    [Number] int  NOT NULL,
+    [Cost] decimal(18,0)  NOT NULL
 );
 GO
 
@@ -67,7 +75,8 @@ CREATE TABLE [dbo].[Guests] (
     [PhoneNumber] nvarchar(max)  NOT NULL,
     [City] nvarchar(max)  NOT NULL,
     [Country] nvarchar(max)  NOT NULL,
-    [Age] int  NOT NULL,
+    [GuestTypeId] int  NOT NULL,
+    [BirthDate] datetime  NULL,
     [Booking_Id] int  NOT NULL
 );
 GO
@@ -105,6 +114,15 @@ CREATE TABLE [dbo].[Users] (
 );
 GO
 
+-- Creating table 'GuestTypes'
+CREATE TABLE [dbo].[GuestTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NOT NULL,
+    [Cost] decimal(18,0)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -136,6 +154,12 @@ GO
 -- Creating primary key on [Id] in table 'Users'
 ALTER TABLE [dbo].[Users]
 ADD CONSTRAINT [PK_Users]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GuestTypes'
+ALTER TABLE [dbo].[GuestTypes]
+ADD CONSTRAINT [PK_GuestTypes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -186,6 +210,21 @@ GO
 CREATE INDEX [IX_FK_RoomTypeRoom]
 ON [dbo].[Rooms]
     ([RoomTypeId]);
+GO
+
+-- Creating foreign key on [GuestTypeId] in table 'Guests'
+ALTER TABLE [dbo].[Guests]
+ADD CONSTRAINT [FK_GuestTypeGuest]
+    FOREIGN KEY ([GuestTypeId])
+    REFERENCES [dbo].[GuestTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GuestTypeGuest'
+CREATE INDEX [IX_FK_GuestTypeGuest]
+ON [dbo].[Guests]
+    ([GuestTypeId]);
 GO
 
 -- --------------------------------------------------

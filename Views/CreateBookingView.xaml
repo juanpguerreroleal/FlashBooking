@@ -16,7 +16,7 @@
             <ColumnDefinition Width="60*"/>
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="New Booking" Grid.Row="0" Grid.Column="1" FontFamily="Segoe UI Light" FontSize="25" HorizontalContentAlignment="Center" Foreground="White"/>
+        <Label Content="Nueva Reservación" Grid.Row="0" Grid.Column="1" FontFamily="Segoe UI Light" FontSize="25" HorizontalContentAlignment="Center" Foreground="White"/>
         <Grid Grid.Column="1" Grid.Row="1" Background="White">
             <ScrollViewer HorizontalContentAlignment="Stretch">
                 <StackPanel Orientation="Vertical">
@@ -31,9 +31,9 @@
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Nombre"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding Guest.Name}"/>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding GuestItem.Name}"/>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Apellido"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding Guest.LastName}"/>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding GuestItem.LastName}"/>
                     </Grid>
                     <Grid Margin="10" Height="50">
                         <Grid.ColumnDefinitions>
@@ -45,9 +45,9 @@
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Numero de Telefono"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding Guest.PhoneNumber}"/>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding GuestItem.PhoneNumber}"/>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Ciudad de Residencia"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding Guest.City}"/>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding GuestItem.City}"/>
                     </Grid>
                     <Grid Margin="10" Height="50">
                         <Grid.ColumnDefinitions>
@@ -59,9 +59,9 @@
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Pais de Residencia"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding Guest.Country}"/>
-                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Edad"/>
-                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="1" Text="{Binding Guest.Age}"/>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding GuestItem.Country}"/>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Fecha de nacimiento"/>
+                        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding GuestItem.BirthDate, Mode=TwoWay}"></DatePicker>
                     </Grid>
                     <Separator/>
                     <Label Content="Reservación" FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center"/>
@@ -90,7 +90,7 @@
                             <RowDefinition Height="50*"/>
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Entrada"/>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Llegada"/>
                         <DatePicker Grid.Row="1" Grid.Column="0" SelectedDate="{Binding BookingItem.CheckIn, Mode=TwoWay}"></DatePicker>
                         <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Salida"/>
                         <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding BookingItem.CheckOut, Mode=TwoWay}"></DatePicker>
@@ -104,8 +104,11 @@
                             <RowDefinition Height="50*"/>
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Habitacion"/>
-                        <ComboBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding AvailableRooms}">
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Habitación"/>
+                        <ComboBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding RoomList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedRoom}">
+                        </ComboBox>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="Paquete"/>
+                        <ComboBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding GuestTypeList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedGuestType}">
                         </ComboBox>
                     </Grid>
                     <Grid>
@@ -116,7 +119,7 @@
                             <ColumnDefinition Width="20*"/>
                         </Grid.ColumnDefinitions>
                         <Button Content="Cancelar" Command="{Binding CancelCommand}" Grid.Column="1" Height="30" Background="LightGray" Width="100"/>
-                        <Button Grid.Column="2" Height="30" Content="Crear" Background="LightGreen" Width="100"/>
+                        <Button Grid.Column="2" Command="{Binding CreateCommand}" Height="30" Content="Crear" Background="LightGreen" Width="100"/>
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

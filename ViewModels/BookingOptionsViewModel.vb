@@ -29,11 +29,11 @@ Public Class BookingOptionsViewModel
                 booking.CheckOut = item.CheckOutDateTime
                 booking.Id = item.Id
                 Dim guest = New GuestModel
-                guest.Name = item.Guest.Name
-                guest.LastName = item.Guest.LastName
-                guest.City = item.Guest.City
-                guest.PhoneNumber = item.Guest.PhoneNumber
-                guest.BookingId = item.Guest.Booking.Id
+                guest.Name = item.Guest.FirstOrDefault().Name
+                guest.LastName = item.Guest.FirstOrDefault().LastName
+                guest.City = item.Guest.FirstOrDefault().City
+                guest.PhoneNumber = item.Guest.FirstOrDefault().PhoneNumber
+                guest.BookingId = item.Guest.FirstOrDefault().Booking.Id
                 booking.Guest = guest
                 bookings.Add(booking)
             Next
