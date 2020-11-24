@@ -16,5 +16,5 @@ C:\Users\juan_\source\repos\FlashBooking\Application.xaml
 127133999473
 MainWindow.xaml;Views\AdminView.xaml;Views\BookingOptionsView.xaml;Views\CreateBookingView.xaml;Views\GuestOptionsView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\RegisterView.xaml;Views\RoomOptionsView.xaml;
 
-True
+False
 
