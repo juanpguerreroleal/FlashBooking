@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FlashBooking"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid HorizontalAlignment="Stretch" Background="LightSteelBlue">
+    <Grid HorizontalAlignment="Stretch" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -31,7 +31,11 @@
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding RefreshCommand}" Grid.Column="4" Grid.Row="1" Content="Refresh"/>
+                    <Button Command="{Binding RefreshCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                        <Button.Content>
+                            <Image Source="../Resources/Images/Refresh.png"/>
+                        </Button.Content>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>

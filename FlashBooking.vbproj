@@ -301,6 +301,13 @@
       <LastGenOutput>DB.vb</LastGenOutput>
       <DependentUpon>DB.edmx</DependentUpon>
     </Content>
+    <Resource Include="Resources\Images\Add.png" />
+    <Resource Include="Resources\Images\Refresh.png" />
+    <Resource Include="Resources\Images\Bookings.png" />
+    <Resource Include="Resources\Images\Person.png" />
+    <Resource Include="Resources\Images\Door.png" />
+    <Resource Include="Resources\Images\GradientBackground.png" />
+    <Resource Include="Resources\Images\GreenBackground.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

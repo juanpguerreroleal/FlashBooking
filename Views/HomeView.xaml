@@ -16,12 +16,16 @@
         <DataTemplate DataType="{x:Type local:BookingOptionsViewModel}">
             <local:BookingOptionsView />
         </DataTemplate>
+
     </UserControl.Resources>
-    <Grid Background="DarkSlateBlue">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="Room" ImageSource="../Resources/Images/GradientBackground.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="32*"/>
-            <ColumnDefinition Width="32*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="42*"/>
             <ColumnDefinition Width="32*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
@@ -31,14 +35,26 @@
             <RowDefinition Height="65*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
-            <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="1" Width="300" Height="50" Content="INQUILINOS" Foreground="Black"/>
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="2" Width="300" Height="50" Content="HABITACIONES" Foreground="Black"/>
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="3" Width="300" Height="50" Content="RESERVACIONES" Foreground="Black"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <StackPanel Orientation="Vertical">
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="1" Height="100" Foreground="Black" Background="#ffffff">
+                    <Button.Content>
+                        <Image Source="../Resources/Images/Person.png"/>
+                    </Button.Content>
+                </Button>
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="2" Height="100" Foreground="Black" Background="#ffffff">
+                    <Button.Content>
+                        <Image Source="../Resources/Images/Door.png"/>
+                    </Button.Content>
+                </Button>
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="3" Height="100" Foreground="Black" Background="#ffffff">
+                    <Button.Content>
+                        <Image Source="../Resources/Images/Bookings.png"/>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </ScrollViewer>
-        <Grid Background="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
+        <Grid Background="White" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <ContentControl Content="{Binding CurrentControlViewModel}"/>
         </Grid>
     </Grid>
