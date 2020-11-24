@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:FlashBooking"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Yellow">
+    <Grid Background="LightSteelBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
         <Grid
             Grid.Row="0">
@@ -18,23 +18,65 @@
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Bookings" FontFamily="Segoe UI Light" FontSize="20" FontWeight="Bold"/>
+                <Label Grid.Row="0" Grid.RowSpan="2" Content="Reservaciones" FontFamily="Segoe UI Light" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding RefreshCommand}" Grid.Column="4" Content="New"/>
-                    <Button Command="{Binding CreateCommand}" Grid.Column="4" Content="New"/>
+                    <Button Command="{Binding RefreshCommand}" Grid.Column="3" Grid.Row="1" Content="Refresh"/>
+                    <Button Command="{Binding CreateCommand}" Grid.Column="4" Grid.Row="1" Content="New"/>
                 </Grid>
             </Grid>
         </Grid>
         <ListView
-            Grid.Row="1">
-            
+            Grid.Row="1"
+            ItemsSource="{Binding BookingList}"
+            HorizontalContentAlignment="Stretch">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Id">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Id}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Fecha de creacion">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding CreationDate}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Llegada">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding CheckIn}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Salida">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding CheckOut}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Inquilino">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Guest.Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
     </Grid>
 </UserControl>

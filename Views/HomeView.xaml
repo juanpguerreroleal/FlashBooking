@@ -33,9 +33,9 @@
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="1" Width="300" Height="50" Content="GUESTS" Foreground="Black"/>
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="2" Width="300" Height="50" Content="ROOMS" Foreground="Black"/>
-                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="3" Width="300" Height="50" Content="BOOKINGS" Foreground="Black"/>
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="1" Width="300" Height="50" Content="INQUILINOS" Foreground="Black"/>
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="2" Width="300" Height="50" Content="HABITACIONES" Foreground="Black"/>
+                <Button Command="{Binding ChangeOptionCommand}" CommandParameter="3" Width="300" Height="50" Content="RESERVACIONES" Foreground="Black"/>
             </StackPanel>
         </ScrollViewer>
         <Grid Background="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">

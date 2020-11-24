@@ -51,4 +51,37 @@
             OnPropertyChanged(NameOf(BookingId))
         End Set
     End Property
+    Private _guestTypeId As Integer
+    Public Property GuestTypeId() As Integer
+        Get
+            Return _guestTypeId
+        End Get
+        Set(ByVal value As Integer)
+            _guestTypeId = value
+            OnPropertyChanged(NameOf(guestTypeId))
+        End Set
+    End Property
+    Private _birthDate As System.DateTime
+    Public Property BirthDate() As System.DateTime
+        Get
+            Return _birthDate
+        End Get
+        Set(ByVal value As System.DateTime)
+            _birthDate = value
+            OnPropertyChanged(NameOf(BirthDate))
+        End Set
+    End Property
+    Private _country As String
+    Public Property Country() As String
+        Get
+            Return _country
+        End Get
+        Set(ByVal value As String)
+            _country = value
+            OnPropertyChanged(NameOf(Country))
+        End Set
+    End Property
+    Public Sub New()
+        BirthDate = DateTime.Now.AddYears(-18)
+    End Sub
 End Class

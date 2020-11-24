@@ -19,7 +19,7 @@ Namespace FlashBooking
         Public Property CheckOutDateTime As Date
         Public Property IsConfirmed As Boolean = false
     
-        Public Overridable Property Guest As Guest
+        Public Overridable Property Guest As ICollection(Of Guest) = New HashSet(Of Guest)
         Public Overridable Property Room As Room
     
     End Class

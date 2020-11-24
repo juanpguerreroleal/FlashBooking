@@ -16,6 +16,8 @@ Namespace FlashBooking
         Public Property Id As Integer
         Public Property Description As String
         Public Property RoomTypeId As Integer
+        Public Property Number As Integer
+        Public Property Cost As Decimal
     
         Public Overridable Property Booking As ICollection(Of Booking) = New HashSet(Of Booking)
         Public Overridable Property RoomType As RoomType

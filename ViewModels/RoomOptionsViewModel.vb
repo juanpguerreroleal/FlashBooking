@@ -5,32 +5,32 @@ Imports FlashBooking.FlashBooking
 Public Class RoomOptionsViewModel
     Inherits BaseViewModel
     Private _dataService As BussinessService
-    Private _roomsList As ObservableCollection(Of RoomModel)
-    Public Property RoomsList() As ObservableCollection(Of RoomModel)
+    Private _roomsList As ObservableCollection(Of RoomTypeModel)
+    Public Property RoomsList() As ObservableCollection(Of RoomTypeModel)
         Get
             Return _roomsList
         End Get
-        Set(ByVal value As ObservableCollection(Of RoomModel))
+        Set(ByVal value As ObservableCollection(Of RoomTypeModel))
             _roomsList = value
             OnPropertyChanged(NameOf(RoomsList))
         End Set
     End Property
     Public Sub New()
         _dataService = New BussinessService()
-        RoomsList = New ObservableCollection(Of RoomModel)
+        RoomsList = New ObservableCollection(Of RoomTypeModel)
         LoadData()
         _refreshCommand = New DelegateCommand(AddressOf RefreshData, AddressOf CanRefresh)
     End Sub
     Public Sub LoadData()
         Dim roomsListResponse = _dataService.GetRoomsList()
         If (roomsListResponse.HasSucceeded) Then
-            Dim rooms = New ObservableCollection(Of RoomModel)
+            Dim rooms = New ObservableCollection(Of RoomTypeModel)
             For Each item As RoomType In roomsListResponse.RoomsList
-                Dim room = New RoomModel
+                Dim room = New RoomTypeModel
                 room.Name = item.Name
                 room.Description = item.Description
                 room.AdultsCapacity = item.AdultsCapacity
-                room.ChildrensCapacity = item.ChildrenCapacity
+                room.ChildrenCapacity = item.ChildrenCapacity
                 room.TotalCapacity = item.TotalCapacity
                 rooms.Add(room)
             Next
@@ -40,13 +40,13 @@ Public Class RoomOptionsViewModel
     Public Sub RefreshData()
         Dim roomsListResponse = _dataService.GetRoomsList()
         If (roomsListResponse.HasSucceeded) Then
-            Dim rooms = New ObservableCollection(Of RoomModel)
+            Dim rooms = New ObservableCollection(Of RoomTypeModel)
             For Each item As RoomType In roomsListResponse.RoomsList
-                Dim room = New RoomModel
+                Dim room = New RoomTypeModel
                 room.Name = item.Name
                 room.Description = item.Description
                 room.AdultsCapacity = item.AdultsCapacity
-                room.ChildrensCapacity = item.ChildrenCapacity
+                room.ChildrenCapacity = item.ChildrenCapacity
                 room.TotalCapacity = item.TotalCapacity
                 rooms.Add(room)
             Next

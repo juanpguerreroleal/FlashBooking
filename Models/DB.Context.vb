@@ -29,6 +29,7 @@ Namespace FlashBooking
         Public Overridable Property Bookings() As DbSet(Of Booking)
         Public Overridable Property RoomTypes() As DbSet(Of RoomType)
         Public Overridable Property Users() As DbSet(Of User)
+        Public Overridable Property GuestTypes() As DbSet(Of GuestType)
     
     End Class
 
