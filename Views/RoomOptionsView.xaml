@@ -38,12 +38,12 @@
                             <ColumnDefinition Width="10*"/>
                             <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Command="{Binding RefreshCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                        <Button Command="{Binding RefreshRoomTypesCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
                             <Button.Content>
                                 <Image Source="../Resources/Images/Refresh.png"/>
                             </Button.Content>
                         </Button>
-                        <Button Command="{Binding CreateCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                        <Button Command="{Binding CreateRoomTypeCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
                             <Button.Content>
                                 <Image Source="../Resources/Images/Add.png"/>
                             </Button.Content>

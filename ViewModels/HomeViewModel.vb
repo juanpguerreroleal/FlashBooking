@@ -33,7 +33,7 @@
             Case 1
                 CurrentControlViewModel = New GuestOptionsViewModel()
             Case 2
-                CurrentControlViewModel = New RoomOptionsViewModel()
+                CurrentControlViewModel = New RoomOptionsViewModel(_context)
             Case 3
                 CurrentControlViewModel = New BookingOptionsViewModel(_context)
         End Select
