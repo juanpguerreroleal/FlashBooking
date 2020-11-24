@@ -39,6 +39,9 @@
             Case GeneralEnums.Views.Register
                 CurrentPageViewModel = New RegisterViewModel(Me)
                 Title = "Registrar usuario"
+            Case GeneralEnums.Views.CreateRoomType
+                CurrentPageViewModel = New CreateRoomTypeViewModel(Me)
+                Title = "Crear tipo de habitacion"
         End Select
     End Sub
 End Class

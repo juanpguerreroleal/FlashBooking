@@ -79,6 +79,21 @@ Public Class BussinessService
         End Try
         Return response
     End Function
+    Public Function CreateRoomType(roomType As RoomType) As GetCreateRoomTypeResponse
+        Dim response = New GetCreateRoomTypeResponse
+        response.HasSucceeded = False
+        Try
+            Using db As New DBContainer
+                db.RoomTypes.Add(roomType)
+                db.SaveChanges()
+                response.HasSucceeded = True
+            End Using
+        Catch ex As Exception
+            response.ErrorMessageId = DBEnums.Errors.DBContextError
+            response.Exception = ex
+        End Try
+        Return response
+    End Function
 #End Region
 #Region "Rooms"
     Public Function GetRoomById(id As Integer) As Room
@@ -96,7 +111,7 @@ Public Class BussinessService
         response.HasSucceeded = False
         Try
             Using db As New DBContainer
-                Dim rooms = db.RoomTypes.Include(Function(obj) obj.Id).ToList()
+                Dim rooms = db.RoomTypes.ToList()
                 If (rooms IsNot Nothing) Then
                     response.HasSucceeded = True
                     response.RoomsList = rooms

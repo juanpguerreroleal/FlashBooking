@@ -19,6 +19,9 @@
         <DataTemplate DataType="{x:Type local:RegisterViewModel}">
             <local:RegisterView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:CreateRoomTypeViewModel}">
+            <local:CreateRoomTypeView/>
+        </DataTemplate>
     </Window.Resources>
     <ContentControl Content="{Binding CurrentPageViewModel}" />
 </Window>
