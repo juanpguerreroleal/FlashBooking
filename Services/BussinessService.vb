@@ -96,7 +96,7 @@ Public Class BussinessService
         response.HasSucceeded = False
         Try
             Using db As New DBContainer
-                Dim rooms = db.RoomTypes.Include(Function(obj) obj.Id).ToList()
+                Dim rooms = db.RoomTypes.ToList()
                 If (rooms IsNot Nothing) Then
                     response.HasSucceeded = True
                     response.RoomsList = rooms

@@ -6,38 +6,160 @@
              xmlns:local="clr-namespace:FlashBooking"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="CornflowerBlue">
-        <Button Content="Nuevo" HorizontalAlignment="Left" Margin="214,357,0,0" VerticalAlignment="Top" Width="133" Height="31"/>
-        <Button Content="Guardar" HorizontalAlignment="Left" Margin="507,357,0,0" VerticalAlignment="Top" Width="133" Height="31"/>
-        <ListView
-        ItemsSource="{Binding RoomsList}" Height="271" VerticalAlignment="Bottom" Margin="32,0,32,111" RenderTransformOrigin="0.587,0.512">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid 
+            Background="White"
+            Grid.Row="0"
+            Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="60*"/>
+            </Grid.RowDefinitions>
+            <Grid
+            Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.RowSpan="2" Content="Tipos de Habitaciones" FontFamily="Segoe UI Light" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="20*"/>
                             <ColumnDefinition Width="20*"/>
                             <ColumnDefinition Width="10*"/>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Content="{Binding Name}"/>
-                        <Label Grid.Column="1" Grid.Row="0" Content="{Binding LastName}"/>
-                        <Label Grid.Column="2" Grid.Row="0" Content="{Binding PhoneNumber}"/>
-                        <Label Grid.Column="3" Grid.Row="0" Content="{Binding City}"/>
-                        <Label Grid.Column="4" Grid.Row="0" Content="{Binding BookingId}"/>
+                        <Button Command="{Binding RefreshCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                            <Button.Content>
+                                <Image Source="../Resources/Images/Refresh.png"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Command="{Binding CreateCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                            <Button.Content>
+                                <Image Source="../Resources/Images/Add.png"/>
+                            </Button.Content>
+                        </Button>
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Label Content="Room Manager " HorizontalAlignment="Left" Margin="341,26,0,0" VerticalAlignment="Top" Width="155" FontSize="20" FontWeight="Bold" Foreground="White"/>
-        <Button Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="640,12,0,0" VerticalAlignment="Top" Width="108" Height="34">
-
-        </Button>
-
+                </Grid>
+            </Grid>
+            <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding RoomsList}"
+            HorizontalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Nombre">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Name}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Descripcion">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Description}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Adultos">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding AdultsCapacity}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Niños">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding ChildrenCapacity}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Capacidad total">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding TotalCapacity}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid 
+            Background="White"
+            Grid.Row="1"
+            Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="60*"/>
+            </Grid.RowDefinitions>
+            <Grid
+            Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.RowSpan="2" Content="Habitaciones" FontFamily="Segoe UI Light" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding RefreshCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                            <Button.Content>
+                                <Image Source="../Resources/Images/Refresh.png"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Command="{Binding CreateCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                            <Button.Content>
+                                <Image Source="../Resources/Images/Add.png"/>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding RoomList}"
+            HorizontalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Nombre">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Number}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Descripcion">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Description}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>
