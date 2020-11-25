@@ -50,4 +50,14 @@
             OnPropertyChanged(NameOf(Cost))
         End Set
     End Property
+    Private _roomTypeName As String
+    Public Property RoomTypeName() As String
+        Get
+            Return _roomTypeName
+        End Get
+        Set(ByVal value As String)
+            _roomTypeName = value
+            OnPropertyChanged(NameOf(RoomTypeName))
+        End Set
+    End Property
 End Class

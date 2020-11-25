@@ -42,6 +42,9 @@
             Case GeneralEnums.Views.CreateRoomType
                 CurrentPageViewModel = New CreateRoomTypeViewModel(Me)
                 Title = "Crear tipo de habitacion"
+            Case GeneralEnums.Views.CreateRoom
+                CurrentPageViewModel = New CreateRoomViewModel(Me)
+                Title = "Crear habitacion"
         End Select
     End Sub
 End Class

@@ -10,11 +10,11 @@ none
 false
 
 C:\Users\juan_\source\repos\FlashBooking\Application.xaml
-101569305784
+11-1368820656
 3416675918
-57-617162733
+601370780802
 127133999473
-MainWindow.xaml;Views\AdminView.xaml;Views\BookingOptionsView.xaml;Views\CreateBookingView.xaml;Views\CreateRoomTypeView.xaml;Views\GuestOptionsView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\RegisterView.xaml;Views\RoomOptionsView.xaml;
+MainWindow.xaml;Views\AdminView.xaml;Views\BookingOptionsView.xaml;Views\CreateBookingView.xaml;Views\CreateRoomTypeView.xaml;Views\CreateRoomView.xaml;Views\GuestOptionsView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\RegisterView.xaml;Views\RoomOptionsView.xaml;
 
 True
 

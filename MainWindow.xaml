@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type local:CreateRoomTypeViewModel}">
             <local:CreateRoomTypeView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:CreateRoomViewModel}">
+            <local:CreateRoomView/>
+        </DataTemplate>
     </Window.Resources>
     <ContentControl Content="{Binding CurrentPageViewModel}" />
 </Window>

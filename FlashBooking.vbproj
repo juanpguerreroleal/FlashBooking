@@ -98,6 +98,7 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingModel.vb" />
+    <Compile Include="Models\CreateRoomResponse.vb" />
     <Compile Include="Models\DB.Context.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -153,6 +154,7 @@
     <Compile Include="ViewModels\BookingOptionsViewModel.vb" />
     <Compile Include="ViewModels\CreateBookingViewModel.vb" />
     <Compile Include="ViewModels\CreateRoomTypeViewModel.vb" />
+    <Compile Include="ViewModels\CreateRoomViewModel.vb" />
     <Compile Include="ViewModels\GuestOptionsViewModel.vb" />
     <Compile Include="ViewModels\HomeViewModel.vb" />
     <Compile Include="ViewModels\LoginViewModel.vb" />
@@ -170,6 +172,9 @@
     </Compile>
     <Compile Include="Views\CreateRoomTypeView.xaml.vb">
       <DependentUpon>CreateRoomTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateRoomView.xaml.vb">
+      <DependentUpon>CreateRoomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GuestOptionsView.xaml.vb">
       <DependentUpon>GuestOptionsView.xaml</DependentUpon>
@@ -211,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateRoomTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateRoomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
