@@ -43,6 +43,25 @@ Public Class BussinessService
         End Try
         Return response
     End Function
+    Public Function GetBookingList(startDate As System.DateTime, endDate As System.DateTime) As GetBookingListResponse
+        Dim response = New GetBookingListResponse
+        response.HasSucceeded = False
+        Try
+            Using db As New DBContainer
+                Dim bookings = db.Bookings.Where(Function(booking) (booking.CheckInDateTime > startDate And booking.CheckOutDateTime < endDate)).Include(Function(obj) obj.Guest).ToList()
+                If (bookings IsNot Nothing) Then
+                    response.HasSucceeded = True
+                    response.BookingList = bookings
+                Else
+                    response.ErrorMessageId = DBEnums.Errors.NoData
+                End If
+            End Using
+        Catch ex As Exception
+            response.ErrorMessageId = DBEnums.Errors.DBContextError
+            response.Exception = ex
+        End Try
+        Return response
+    End Function
     Public Function CreateBooking(booking As Booking) As GetCreateBookingResponse
         Dim response = New GetCreateBookingResponse
         response.HasSucceeded = False
@@ -106,12 +125,12 @@ Public Class BussinessService
             Return Nothing
         End Try
     End Function
-    Public Function GetRoomsList() As GetRoomsListResponse
+    Public Function GetRoomList() As GetRoomsListResponse
         Dim response = New GetRoomsListResponse
         response.HasSucceeded = False
         Try
             Using db As New DBContainer
-                Dim rooms = db.RoomTypes.ToList()
+                Dim rooms = db.Rooms.Include(Function(obj) obj.RoomType).ToList()
                 If (rooms IsNot Nothing) Then
                     response.HasSucceeded = True
                     response.RoomsList = rooms
@@ -137,6 +156,21 @@ Public Class BussinessService
                 Else
                     response.ErrorMessageId = DBEnums.Errors.NoData
                 End If
+            End Using
+        Catch ex As Exception
+            response.ErrorMessageId = DBEnums.Errors.DBContextError
+            response.Exception = ex
+        End Try
+        Return response
+    End Function
+    Public Function CreateRoom(room As Room) As CreateRoomResponse
+        Dim response = New CreateRoomResponse
+        response.HasSucceeded = False
+        Try
+            Using db As New DBContainer
+                db.Rooms.Add(room)
+                db.SaveChanges()
+                response.HasSucceeded = True
             End Using
         Catch ex As Exception
             response.ErrorMessageId = DBEnums.Errors.DBContextError

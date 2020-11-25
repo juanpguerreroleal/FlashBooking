@@ -5,5 +5,6 @@
         Register = 3
         CreateBookings = 4
         CreateRoomType = 5
+        CreateRoom = 6
     End Enum
 End Class

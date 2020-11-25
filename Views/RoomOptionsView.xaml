@@ -122,12 +122,12 @@
                             <ColumnDefinition Width="10*"/>
                             <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Command="{Binding RefreshCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                        <Button Command="{Binding RefreshRoomsCommand}" Grid.Column="3" Grid.Row="1" Background="#ffffff" BorderThickness="0">
                             <Button.Content>
                                 <Image Source="../Resources/Images/Refresh.png"/>
                             </Button.Content>
                         </Button>
-                        <Button Command="{Binding CreateCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
+                        <Button Command="{Binding CreateRoomCommand}" Grid.Column="4" Grid.Row="1" Background="#ffffff" BorderThickness="0">
                             <Button.Content>
                                 <Image Source="../Resources/Images/Add.png"/>
                             </Button.Content>
@@ -140,7 +140,7 @@
             ItemsSource="{Binding RoomList}"
             HorizontalContentAlignment="Stretch">
                 <ListView.View>
-                    <GridView>
+                    <GridView AllowsColumnReorder="True">
                         <GridView.Columns>
                             <GridViewColumn Header="Nombre">
                                 <GridViewColumn.CellTemplate>

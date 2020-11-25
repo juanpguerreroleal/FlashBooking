@@ -16,10 +16,32 @@ Public Class BookingOptionsViewModel
             OnPropertyChanged(NameOf(BookingList))
         End Set
     End Property
+    Private _startDate As System.DateTime
+    Public Property StartDate() As System.DateTime
+        Get
+            Return _startDate
+        End Get
+        Set(ByVal value As System.DateTime)
+            _startDate = value
+            OnPropertyChanged(StartDate)
+            RefreshData()
+        End Set
+    End Property
+    Private _endDate As System.DateTime
+    Public Property EndDate() As System.DateTime
+        Get
+            Return _endDate
+        End Get
+        Set(ByVal value As System.DateTime)
+            _endDate = value
+            OnPropertyChanged(EndDate)
+            RefreshData()
+        End Set
+    End Property
 #End Region
 #Region "Methods"
     Public Sub RefreshData()
-        Dim bookingListResponse = _dataService.GetBookingList()
+        Dim bookingListResponse = _dataService.GetBookingList(StartDate, EndDate)
         If (bookingListResponse.HasSucceeded) Then
             Dim bookings = New ObservableCollection(Of BookingModel)
             For Each item As Booking In bookingListResponse.BookingList
@@ -59,6 +81,8 @@ Public Class BookingOptionsViewModel
         _refreshCommand = New DelegateCommand(AddressOf RefreshData, AddressOf CanRefresh)
         _createCommand = New DelegateCommand(AddressOf CreateBooking, AddressOf CanCreateBooking)
         RefreshData()
+        StartDate = DateTime.Now
+        EndDate = DateTime.Now.AddDays(3)
     End Sub
 #End Region
 #Region "Commands"
