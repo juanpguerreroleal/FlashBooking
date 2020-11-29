@@ -120,6 +120,7 @@
     <Compile Include="Models\GetAvailableRoomListResponse.vb" />
     <Compile Include="Models\GetBookingListResponse.vb" />
     <Compile Include="Models\GetCreateBookingResponse.vb" />
+    <Compile Include="Models\GetEditRoomTypeResponse.vb" />
     <Compile Include="Models\GetCreateRoomTypeResponse.vb" />
     <Compile Include="Models\GetGuestListResponse.vb" />
     <Compile Include="Models\GetGuestTypeListResponse.vb" />
@@ -158,6 +159,7 @@
     <Compile Include="ViewModels\CreateBookingViewModel.vb" />
     <Compile Include="ViewModels\CreateRoomTypeViewModel.vb" />
     <Compile Include="ViewModels\CreateRoomViewModel.vb" />
+    <Compile Include="ViewModels\EditRoomTypeViewModel.vb" />
     <Compile Include="ViewModels\GuestOptionsViewModel.vb" />
     <Compile Include="ViewModels\HomeViewModel.vb" />
     <Compile Include="ViewModels\LoginViewModel.vb" />
@@ -178,6 +180,9 @@
     </Compile>
     <Compile Include="Views\CreateRoomView.xaml.vb">
       <DependentUpon>CreateRoomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditRoomTypeView.xaml.vb">
+      <DependentUpon>EditRoomTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GuestOptionsView.xaml.vb">
       <DependentUpon>GuestOptionsView.xaml</DependentUpon>
@@ -223,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateRoomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditRoomTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

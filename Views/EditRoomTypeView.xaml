@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="EditRoomTypeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlashBooking"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/Images/GradientBackground.png"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="20*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Editar tipo de habitacion" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Segoe UI Light" FontSize="25" HorizontalContentAlignment="Center" Foreground="Black"/>
+                <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Nombre"/>
+                    <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding RoomTypeItem.Name}"/>
+                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="30*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Adultos"/>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" Text="Niños"/>
+                        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="4" Text="Total"/>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="30*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding RoomTypeItem.AdultsCapacity}"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="2" Text="{Binding RoomTypeItem.ChildrenCapacity}"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="4" Text="{Binding RoomTypeItem.TotalCapacity}" />
+                    </Grid>
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Text="Descripcion"/>
+                    <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding RoomTypeItem.Description}"/>
+                </Grid>
+                <Button Content="Cancelar" Command="{Binding CancelCommand}" Grid.Column="1" Height="30" Grid.Row="2" Background="LightGray" Width="100"/>
+                <Button Grid.Column="2" Grid.Row="2" Command="{Binding EditCommand}" Height="30" Content="Editar" Width="100">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/Images/GreenBackground.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

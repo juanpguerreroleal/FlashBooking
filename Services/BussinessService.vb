@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Entity
+Imports System.Data.Entity.Migrations
 Imports FlashBooking.FlashBooking
 
 Public Class BussinessService
@@ -112,6 +113,31 @@ Public Class BussinessService
             response.Exception = ex
         End Try
         Return response
+    End Function
+    Public Function EditRoomType(roomType As RoomType) As GetEditRoomTypeResponse
+        Dim response = New GetEditRoomTypeResponse
+        response.HasSucceeded = False
+        Try
+            Using db As New DBContainer
+                db.RoomTypes.AddOrUpdate(roomType)
+                db.SaveChanges()
+                response.HasSucceeded = True
+            End Using
+        Catch ex As Exception
+            response.ErrorMessageId = DBEnums.Errors.DBContextError
+            response.Exception = ex
+        End Try
+        Return response
+    End Function
+    Public Function GetRoomTypeById(id As Integer) As RoomType
+        Try
+            Using db As New DBContainer
+                Dim roomType = db.RoomTypes.Where(Function(x) x.Id.Equals(id)).FirstOrDefault()
+                Return roomType
+            End Using
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 #End Region
 #Region "Rooms"

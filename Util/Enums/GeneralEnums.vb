@@ -6,5 +6,6 @@
         CreateBookings = 4
         CreateRoomType = 5
         CreateRoom = 6
+        EditRoomType = 7
     End Enum
 End Class

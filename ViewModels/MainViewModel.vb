@@ -25,7 +25,7 @@
     Public Sub New()
         CurrentPageViewModel = New LoginViewModel(Me)
     End Sub
-    Public Sub ChangeView(viewId As Int32)
+    Public Sub ChangeView(viewId As Int32, Optional Id As Integer = 0)
         Select Case viewId
             Case GeneralEnums.Views.Login
                 CurrentPageViewModel = New LoginViewModel(Me)
@@ -45,6 +45,9 @@
             Case GeneralEnums.Views.CreateRoom
                 CurrentPageViewModel = New CreateRoomViewModel(Me)
                 Title = "Crear habitacion"
+            Case GeneralEnums.Views.EditRoomType
+                CurrentPageViewModel = New EditRoomTypeViewModel(Me, Id)
+                Title = "Editar tipo de habitacion"
         End Select
     End Sub
 End Class

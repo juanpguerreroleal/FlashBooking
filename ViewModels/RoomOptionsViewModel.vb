@@ -37,6 +37,7 @@ Public Class RoomOptionsViewModel
         _createRoomTypeCommand = New DelegateCommand(AddressOf CreateRoomType, AddressOf CanCreateRoomType)
         _refreshRoomsCommand = New DelegateCommand(AddressOf RefreshRooms, AddressOf CanRefreshRooms)
         _createRoomCommand = New DelegateCommand(AddressOf CreateRoom, AddressOf CanCreateRoom)
+        _editRoomTypeCommand = New DelegateCommand(AddressOf EditRoomType, AddressOf CanEditRoomType)
     End Sub
     Public Sub LoadData()
         Dim roomsListResponse = _dataService.GetRoomTypeList()
@@ -44,6 +45,7 @@ Public Class RoomOptionsViewModel
             Dim rooms = New ObservableCollection(Of RoomTypeModel)
             For Each item As RoomType In roomsListResponse.RoomTypeList
                 Dim room = New RoomTypeModel
+                room.Id = item.Id
                 room.Name = item.Name
                 room.Description = item.Description
                 room.AdultsCapacity = item.AdultsCapacity
@@ -60,6 +62,7 @@ Public Class RoomOptionsViewModel
             Dim rooms = New ObservableCollection(Of RoomTypeModel)
             For Each item As RoomType In roomsListResponse.RoomTypeList
                 Dim room = New RoomTypeModel
+                room.Id = item.Id
                 room.Name = item.Name
                 room.Description = item.Description
                 room.AdultsCapacity = item.AdultsCapacity
@@ -105,6 +108,13 @@ Public Class RoomOptionsViewModel
     Private Function CanCreateRoom(ByVal param As Object) As Boolean
         Return True
     End Function
+
+    Public Sub EditRoomType(id As Integer)
+        _context.ChangeView(GeneralEnums.Views.EditRoomType, id)
+    End Sub
+    Private Function CanEditRoomType(ByVal param As Object) As Boolean
+        Return True
+    End Function
 #Region "Commands"
     Private _refreshRoomTypesCommand As ICommand
     Public Property RefreshRoomTypesCommand() As ICommand
@@ -144,6 +154,16 @@ Public Class RoomOptionsViewModel
         Set(ByVal value As ICommand)
             _createRoomCommand = value
             OnPropertyChanged(NameOf(CreateRoomCommand))
+        End Set
+    End Property
+    Private _editRoomTypeCommand As ICommand
+    Public Property EditRoomTypeCommand() As ICommand
+        Get
+            Return _editRoomTypeCommand
+        End Get
+        Set(ByVal value As ICommand)
+            _editRoomTypeCommand = value
+            OnPropertyChanged(NameOf(EditRoomTypeCommand))
         End Set
     End Property
 #End Region
