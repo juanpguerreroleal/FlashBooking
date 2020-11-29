@@ -36,13 +36,45 @@ Public Class RegisterViewModel
         user.LastName = UserModel.LastName
         user.UserName = UserModel.UserName
         user.CreationDate = DateTime.Now
-        If (obj.Password IsNot Nothing) Then
+        If (Not String.IsNullOrEmpty(obj.Password) AndAlso Not String.IsNullOrEmpty(UserModel.UserName) AndAlso Not String.IsNullOrEmpty(UserModel.Name) AndAlso Not String.IsNullOrEmpty(UserModel.LastName)) Then
             Dim hashed = Encode(obj.Password)
             user.PasswordHash = hashed
             Dim response = _authService.Register(user)
             If (response.HasSucceeded) Then
                 _context.ChangeView(GeneralEnums.Views.Login)
+            ElseIf (Not response.HasSucceeded) Then
+                If (response.ErrorMessageId.Equals(DBEnums.Errors.DBContextError)) Then
+                    MessageBox.Show("Ocurrió un error al conectarse a la base de datos, verifique su conexión a internet.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error)
+                ElseIf (response.ErrorMessageId.Equals(DBEnums.Errors.UserNameInUse)) Then
+                    MessageBox.Show("El usuario ya se encuentra en uso.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error)
+                End If
             End If
+        ElseIf (String.IsNullOrEmpty(obj.Password)) Then
+            MessageBox.Show("Introduzca una contraseña.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(UserModel.UserName)) Then
+            MessageBox.Show("Introduzca un correo.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(UserModel.Name)) Then
+            MessageBox.Show("Introduzca su nombre.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(UserModel.LastName)) Then
+            MessageBox.Show("Introduzca su apellido.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error)
         End If
     End Sub
     Public Function Encode(value As String) As String

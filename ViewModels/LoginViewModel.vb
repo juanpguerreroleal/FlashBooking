@@ -46,10 +46,7 @@
 
     Public Sub LogIn(obj As PasswordBox)
         Dim PasswordBox = obj
-        Dim result = ValidatePassword(UserName, PasswordBox.Password)
-        If (result) Then
-            _context.ChangeView(GeneralEnums.Views.Home)
-        End If
+        ValidatePassword(UserName, PasswordBox.Password)
     End Sub
     Public Sub Register()
         _context.ChangeView(GeneralEnums.Views.Register)
@@ -83,6 +80,8 @@
                               MessageBoxButton.OK,
                               MessageBoxImage.Error)
                 End If
+            ElseIf (result.HasSucceeded) Then
+                _context.ChangeView(GeneralEnums.Views.Home)
             End If
         End If
     End Function

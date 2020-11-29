@@ -28,10 +28,15 @@ Public Class AuthenticationService
         response.HasSucceeded = False
         Try
             Using db As New DBContainer
-                db.Users.Add(user)
-                db.SaveChanges()
+                Dim userExists = db.Users.Where(Function(x) x.UserName.Equals(user.UserName)).Any()
+                If (Not userExists) Then
+                    db.Users.Add(user)
+                    db.SaveChanges()
+                    response.HasSucceeded = True
+                ElseIf (userExists) Then
+                    response.ErrorMessageId = DBEnums.Errors.UserNameInUse
+                End If
             End Using
-            response.HasSucceeded = True
         Catch ex As Exception
             response.ErrorMessageId = DBEnums.Errors.DBContextError
             response.Exception = ex

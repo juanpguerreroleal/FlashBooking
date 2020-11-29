@@ -4,5 +4,6 @@
         WrongPassword = 2
         UnexistentUserName = 3
         NoData = 4
+        UserNameInUse = 5
     End Enum
 End Class
