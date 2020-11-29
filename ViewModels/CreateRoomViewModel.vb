@@ -104,6 +104,11 @@ Public Class CreateRoomViewModel
             Dim roomListResponse = _dataService.CreateRoom(room)
             If (roomListResponse.HasSucceeded) Then
                 _context.ChangeView(GeneralEnums.Views.Home)
+            ElseIf (Not roomListResponse.HasSucceeded) Then
+                MessageBox.Show("Ocurrió un error conectadose a la base de datos, revise su conexión a internet.",
+                              "Message",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error)
             End If
         ElseIf (SelectedRoomType Is Nothing) Then
             MessageBox.Show("Selecciona un tipo de habitación.",

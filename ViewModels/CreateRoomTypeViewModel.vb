@@ -52,15 +52,47 @@ Public Class CreateRoomTypeViewModel
     End Function
 
     Public Sub Create()
-        Dim roomType = New RoomType()
-        roomType.Name = RoomTypeItem.Name
-        roomType.Description = RoomTypeItem.Description
-        roomType.AdultsCapacity = RoomTypeItem.AdultsCapacity
-        roomType.ChildrenCapacity = RoomTypeItem.ChildrenCapacity
-        roomType.TotalCapacity = RoomTypeItem.TotalCapacity
-        Dim response = _dataService.CreateRoomType(roomType)
-        If (response.HasSucceeded) Then
-            _context.ChangeView(GeneralEnums.Views.Home)
+        If (Not String.IsNullOrEmpty(RoomTypeItem.Name) AndAlso Not String.IsNullOrEmpty(RoomTypeItem.Description) AndAlso Not String.IsNullOrEmpty(RoomTypeItem.TotalCapacity) AndAlso Not String.IsNullOrEmpty(RoomTypeItem.ChildrenCapacity) AndAlso Not String.IsNullOrEmpty(RoomTypeItem.AdultsCapacity)) Then
+            Dim roomType = New RoomType()
+            roomType.Name = RoomTypeItem.Name
+            roomType.Description = RoomTypeItem.Description
+            roomType.AdultsCapacity = RoomTypeItem.AdultsCapacity
+            roomType.ChildrenCapacity = RoomTypeItem.ChildrenCapacity
+            roomType.TotalCapacity = RoomTypeItem.TotalCapacity
+            Dim response = _dataService.CreateRoomType(roomType)
+            If (response.HasSucceeded) Then
+                _context.ChangeView(GeneralEnums.Views.Home)
+            ElseIf (Not response.HasSucceeded) Then
+                MessageBox.Show("Ocurrió un error conectadose a la base de datos, revise su conexión a internet.",
+                              "Message",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error)
+            End If
+        ElseIf (String.IsNullOrEmpty(RoomTypeItem.Name)) Then
+            MessageBox.Show("Introduce un nombre para el tipo de habitación.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomTypeItem.Description)) Then
+            MessageBox.Show("Introduce una descripción para el tipo de habitación.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomTypeItem.TotalCapacity)) Then
+            MessageBox.Show("Introduce una capacidad total de inquilinos.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomTypeItem.ChildrenCapacity)) Then
+            MessageBox.Show("Introduce una capacidad total de inquilinos niños.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomTypeItem.AdultsCapacity)) Then
+            MessageBox.Show("Introduce una capacidad total de inquilinos adultos.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
         End If
     End Sub
     Public Function CanCreate() As Boolean
