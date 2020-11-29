@@ -184,8 +184,8 @@ Public Class CreateBookingViewModel
         End If
     End Sub
     Public Sub Create()
-        Dim roomItem = _dataService.GetRoomById(SelectedRoom.Id)
-        If (roomItem IsNot Nothing) Then
+        If (SelectedRoom IsNot Nothing AndAlso SelectedGuestType IsNot Nothing) Then
+            Dim roomItem = _dataService.GetRoomById(SelectedRoom.Id)
             Dim guestModel = New Guest
             guestModel.Name = GuestItem.Name
             guestModel.LastName = GuestItem.LastName
@@ -194,19 +194,98 @@ Public Class CreateBookingViewModel
             guestModel.Country = GuestItem.Country
             guestModel.BirthDate = GuestItem.BirthDate
             guestModel.GuestTypeId = SelectedGuestType.Id
-            Dim booking = New Booking()
-            booking.CreationDate = DateTime.Now
-            booking.CheckInDateTime = BookingItem.CheckIn
-            booking.CheckOutDateTime = BookingItem.CheckOut
-            booking.IsConfirmed = False
-            booking.Room = roomItem
-            booking.Guest.Add(guestModel)
-            Dim roomListResponse = _dataService.CreateBooking(booking)
-            If (roomListResponse.HasSucceeded) Then
-                _context.ChangeView(GeneralEnums.Views.Home)
+            Dim validGuest = ValidateGuest(guestModel)
+            If (validGuest) Then
+                Dim booking = New Booking()
+                booking.CreationDate = DateTime.Now
+                booking.CheckInDateTime = BookingItem.CheckIn
+                booking.CheckOutDateTime = BookingItem.CheckOut
+                booking.IsConfirmed = False
+                booking.Room = roomItem
+                booking.Guest.Add(guestModel)
+                Dim validBooking = ValidateBooking(booking)
+                If (validBooking) Then
+                    Dim roomListResponse = _dataService.CreateBooking(booking)
+                    If (roomListResponse.HasSucceeded) Then
+                        _context.ChangeView(GeneralEnums.Views.Home)
+                    ElseIf (Not roomListResponse.HasSucceeded) Then
+                        MessageBox.Show("Ocurrió un error registrando la reservación.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error)
+                    End If
+                End If
             End If
+        ElseIf (SelectedRoom Is Nothing) Then
+            MessageBox.Show("Selecciona una habitacion.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (SelectedGuestType Is Nothing) Then
+            MessageBox.Show("Selecciona un paquete.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
         End If
     End Sub
+    Public Function ValidateGuest(item As Guest) As Boolean
+        If (String.IsNullOrEmpty(item.Name)) Then
+            MessageBox.Show("Introduce el nombre del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.LastName)) Then
+            MessageBox.Show("Introduce el apellido del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.PhoneNumber)) Then
+            MessageBox.Show("Introduce el numero telefonico del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.City)) Then
+            MessageBox.Show("Introduce la ciudad del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.Country)) Then
+            MessageBox.Show("Introduce el país del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.BirthDate.ToString())) Then
+            MessageBox.Show("Introduce la fecha de nacimiento del inquilino.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        End If
+        Return True
+    End Function
+    Public Function ValidateBooking(item As Booking) As Boolean
+        If (String.IsNullOrEmpty(item.CheckInDateTime.ToString())) Then
+            MessageBox.Show("Introduce la fecha de llegada.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (String.IsNullOrEmpty(item.CheckOutDateTime.ToString())) Then
+            MessageBox.Show("Introduce la fecha de salida.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+            Return False
+        ElseIf (item.Guest Is Nothing) Then
+            Return False
+        End If
+        Return True
+    End Function
     Public Function CanCreate() As Boolean
         Return True
     End Function
