@@ -62,13 +62,29 @@
         Return True
     End Function
 
-    Private Function ValidatePassword(userName As String, password As String) As Boolean
+    Private Function ValidatePassword(userName As String, password As String)
         If (userName IsNot Nothing And password IsNot Nothing) Then
             Dim hashed = Encode(password)
             Dim result = _authService.Login(userName, hashed)
-            Return result.HasSucceeded
+            If (Not result.HasSucceeded) Then
+                If (result.ErrorMessageId.Equals(DBEnums.Errors.WrongPassword)) Then
+                    MessageBox.Show("El usuario o la contraseña es incorrecto.",
+                              "Error",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error)
+                ElseIf (result.ErrorMessageId.Equals(DBEnums.Errors.UnexistentUserName)) Then
+                    MessageBox.Show("Introduzca un usuario válido.",
+                                  "Error",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error)
+                ElseIf (result.ErrorMessageId.Equals(DBEnums.Errors.DBContextError)) Then
+                    MessageBox.Show("Ocurrió un error conectadose a la base de datos, revise su conexión a internet.",
+                              "Message",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error)
+                End If
+            End If
         End If
-        Return False
     End Function
     Public Function Encode(value As String) As String
         Dim hash = System.Security.Cryptography.SHA1.Create()
