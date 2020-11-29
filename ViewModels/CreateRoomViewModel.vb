@@ -95,7 +95,7 @@ Public Class CreateRoomViewModel
         End If
     End Sub
     Public Sub Create()
-        If (RoomItem IsNot Nothing And SelectedRoomType.Id > 0) Then
+        If (RoomItem IsNot Nothing AndAlso SelectedRoomType IsNot Nothing AndAlso Not String.IsNullOrEmpty(RoomItem.Number) AndAlso Not String.IsNullOrEmpty(RoomItem.Cost) AndAlso Not String.IsNullOrEmpty(RoomItem.Description) AndAlso Not String.IsNullOrEmpty(RoomItem.Cost)) Then
             Dim room = New Room()
             room.Number = RoomItem.Number
             room.Description = RoomItem.Description
@@ -105,6 +105,26 @@ Public Class CreateRoomViewModel
             If (roomListResponse.HasSucceeded) Then
                 _context.ChangeView(GeneralEnums.Views.Home)
             End If
+        ElseIf (SelectedRoomType Is Nothing) Then
+            MessageBox.Show("Selecciona un tipo de habitación.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomItem.Number)) Then
+            MessageBox.Show("Introduce un numero de habitación.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (RoomItem.Description <= 0) Then
+            MessageBox.Show("Introduce una descripción.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
+        ElseIf (String.IsNullOrEmpty(RoomItem.Cost)) Then
+            MessageBox.Show("Introduce un costo.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error)
         End If
     End Sub
     Public Function CanCreate() As Boolean
